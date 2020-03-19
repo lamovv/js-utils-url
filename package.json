@@ -1,0 +1,30 @@
+{
+  "name": "js-utils-url",
+  "version": "1.0.0",
+  "description": "URL 解析、修改/追加参数等方法集",
+  "keywords": [
+    "JS Engine",
+    "URL Parse",
+    "set search"
+  ],
+  "main": "build/es/index.js",
+  "repository": "https://github.com/lamovv/js-utils-url.git",
+  "license": "MIT",
+  "files": [
+    "build",
+    "README.md",
+    "package.json"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
+    "@babel/preset-env": "^7.8.7",
+    "lodash": "^4.17.15",
+    "rollup": "^2.1.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-replace": "^2.2.0"
+  },
+  "scripts": {
+    "build": "rollup -c"
+  }
+}
