@@ -1,6 +1,6 @@
 {
   "name": "js-utils-url",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "> 仅依赖",
   "keywords": [
     "empty, isArray, isObject"
@@ -62,7 +62,7 @@
   },
   "lint-staged": {
     "./src/**/*.{ts,js}": [
-      "prettier --tab-width 2 --write", 
+      "prettier --tab-width 2 --write",
       "eslint --cache --fix",
       "conventional-changelog -p angular -i CHANGELOG.md -s",
       "git add CHANGELOG.md"
