@@ -1,25 +1,33 @@
-import replace from 'rollup-plugin-replace';
+'use strict';
+
 import babel from 'rollup-plugin-babel';
+import alias from '@rollup/plugin-alias';
+import replace from '@rollup/plugin-replace';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import { merge } from 'lodash';
 
 const pkg = require('./package.json');
 
 function genCfg(options){
   return merge({
+    input: 'src/index.js',
     output: {
-      file: 'build/es/index.js',
+      file: 'dist/index.es.js',
       format: 'es',
-      name: 'index',
       sourcemap: false
     },
     // 指出应将哪些模块视为外部模块
     external: id => {
-      return /^utils-\//i.test(id);
+      return /^@/i.test(id);
     },
     plugins: [
-      replace({
-        __VERSION__: pkg.version
+      alias({
+        resolve: ['.js'],
+        entries: {},
       }),
+      resolve(),
+      commonjs(),
       babel({
         babelrc: false,
         exclude: 'node_modules/**',
@@ -29,19 +37,31 @@ function genCfg(options){
           }]
         ],
         plugins: [
-          '@babel/plugin-proposal-object-rest-spread'
+          '@babel/plugin-proposal-object-rest-spread',
+          '@babel/plugin-proposal-class-properties'
         ]
+      }),
+      replace({
+        __VERSION__: pkg.version
       })
     ]
   }, options);
 }
 
-export default [
+const useUmd = process.env.NODE_FORMAT == 'umd';
+export default useUmd ? 
   genCfg({
-    input: 'src/index.js',
     output: {
-      file: 'build/es/index.js',
-      name: 'url',
+      file: 'dist/index.umd.js',
+      format: 'umd',
+      name: `${pkg.name}`
     }
-  })
-]
+  }): [
+    genCfg(),
+    genCfg({
+      output: {
+        file: 'dist/index.cjs.js',
+        format: 'cjs',
+      }
+    })
+  ]

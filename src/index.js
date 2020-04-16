@@ -1,8 +1,26 @@
 export const v = '__VERSION__';
 
-export function parse(url = ''){
+/**
+ * @typedef {object} Url
+ * @property {string} href - 源url
+ * @property {string} origin
+ * @property {string} protocol
+ * @property {string} host
+ * @property {string} hostname
+ * @property {number} port
+ * @property {string} pathname
+ * @property {string} search
+ * @property {string} hash
+ * @property {object} params
+ */
+
+/**
+ * @param {string} url - URL
+ * @returns {Url}
+ */
+export function parse(url = '') {
   //protocol,hostname,port,pathname,search,hash
-  const REG = /^((https?:)?(?:\/{2})?(([^:/]+?\.[^:/?]+)(?::(\d+))?)?)([^?]*)([^#]*)(#.*)?/i;
+  const REG = /^((https?:)?(?:\/{2})?(([^:/]+?\.[^:/?]+)(?::(\d+))?)?)([^?#]*)([^#]*)(#.*)?/i;
 
   const matches = url.match(REG);
   const queryArr = matches[7].replace(/^\?/, '').split(/&+/);
@@ -15,7 +33,7 @@ export function parse(url = ''){
     let value = item.substring(index + 1);
 
     if (key) {
-      if(!params){
+      if (!params) {
         params = {};
       }
       params[key] = decodeURIComponent(value);
@@ -32,12 +50,16 @@ export function parse(url = ''){
     pathname: matches[6],
     search: matches[7],
     hash: matches[8],
-    params,
-  }
+    params
+  };
 }
 
+/**
+ * @param {object} obj
+ * @returns {string|boolean}
+ */
 export function object2search(obj) {
-  const _obj = Object.assign({}, obj, {'//': '//'});
+  const _obj = Object.assign({}, obj, { '//': '//' });
   const keys = ['protocol', '//', 'host', 'pathname', 'params', 'hash'];
 
   let result = '';
@@ -48,14 +70,14 @@ export function object2search(obj) {
       const _params = Object.assign({}, _obj.params);
 
       for (var k in _params) {
-        if (!_params.hasOwnProperty(k)) {
+        if (!Object.prototype.hasOwnProperty.call(_params, k)) {
           continue;
         }
-        parArr.push(k + '=' + encodeURIComponent(_params[k]) );
+        parArr.push(k + '=' + encodeURIComponent(_params[k]));
       }
       result += '?' + parArr.join('&');
     } else {
-      if(!obj.hostname && key === '//'){
+      if (!obj.hostname && key === '//') {
         return false;
       }
       result += _obj[key] || '';
@@ -64,7 +86,12 @@ export function object2search(obj) {
 
   return result;
 }
-
+/**
+ * @param {string} url
+ * @param {object} params
+ * @param {string} newHash
+ * @returns {string}
+ */
 export function setSearch(url, params, newHash) {
   if (!url) {
     return '';
