@@ -106,3 +106,28 @@ export function setSearch(url, params, newHash) {
 
   return object2search(result);
 }
+
+/**
+ * @param {string} search
+ * @returns {object}
+ */
+export function search2JSON(search) {
+  const queryArr = search.replace(/^\?/, '').split(/&+/);
+  let params;
+
+  queryArr.forEach(item => {
+    //防止value里包含'='误伤
+    let index = item.indexOf('=');
+    let key = item.substr(0, index);
+    let value = item.substring(index + 1);
+
+    if (key) {
+      if (!params) {
+        params = {};
+      }
+      params[key] = decodeURIComponent(value);
+    }
+  });
+
+  return params;
+}
