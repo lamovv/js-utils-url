@@ -1,6 +1,6 @@
 {
   "name": "@js-util-fn/url",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "> 仅依赖JS Engine运行环境的URL 解析、修改/追回参数hash等方法集",
   "keywords": [
     "JS Engine",
@@ -49,6 +49,7 @@
     "lint-staged": "^10.5.4",
     "lodash": "^4.17.21",
     "npm-run-all": "^4.1.5",
+    "pinst": "^2.1.6",
     "prettier": "^2.2.1",
     "rollup": "^2.44.0",
     "rollup-plugin-babel": "^4.4.0",
@@ -91,9 +92,9 @@
     "prepub": "npm run updatev && npm run build",
     "prebeta": "npm run updatev:beta && npm run build",
     "prepublishOnly": "git push --follow-tags origin master",
-    "publish": "npm publish --access=public",
+    "publatest": "npm publish --access=public",
     "pubeta": "npm publish --access=public --tag beta",
-    "pub": "run-s publish sync",
+    "pub": "run-s publatest sync",
     "beta": "run-s pubeta sync",
     "sync": "cnpm sync"
   },
