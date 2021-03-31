@@ -13,7 +13,7 @@ function genCfg(options){
   return merge({
     input: 'src/index.js',
     output: {
-      file: 'dist/index.es.js',
+      file: 'dist/index.esm.js',
       format: 'es',
       sourcemap: false
     },
