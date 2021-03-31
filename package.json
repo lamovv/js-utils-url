@@ -1,6 +1,6 @@
 {
-  "name": "js-utils-url",
-  "version": "1.0.10",
+  "name": "@js-util-fn/url",
+  "version": "0.1.0",
   "description": "> 仅依赖JS Engine运行环境的URL 解析、修改/追回参数hash等方法集",
   "keywords": [
     "JS Engine",
@@ -38,6 +38,7 @@
     "@rollup/plugin-replace": "^2.4.2",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
+    "cnpm": "^6.1.1",
     "console-log-h5": "^1.1.1",
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.3",
@@ -75,7 +76,7 @@
     "upgrade": "yarn upgrade-interactive --latest",
     "init": "npm run clean && rm -rf node_modules && yarn install -s --force",
     "init:nolock": "npm run clean && rm -rf node_modules && yarn install -s --force --no-lockfile",
-    "updatev": "standard-version --release-as patch",
+    "updatev": "standard-version --release-as major",
     "updatev:beta": "standard-version --prerelease beta --skip.changelog --skip.tag",
     "build": "run-p clean prettier build:es build:types",
     "build:es": "rm -rf dist && rollup -c --silent",
@@ -91,8 +92,11 @@
     "prepub": "npm run updatev && npm run build",
     "prebeta": "npm run updatev:beta && npm run build",
     "prepublishOnly": "git push --follow-tags origin master",
-    "pub": "npm publish",
-    "beta": "npm publish --tag beta"
+    "publish": "npm publish --access=public",
+    "publish:beta": "npm publish --access=public --tag beta",
+    "pub": "run-s publish sync",
+    "beta": "npm publish:beta sync",
+    "sync": "cnpm sync"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
