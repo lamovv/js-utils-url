@@ -1,4 +1,4 @@
-# `js-utils-url`
+# `@js-util-fn/url`
 
 > 仅依赖JS Engine运行环境的URL 解析、修改/追回参数hash等方法集
 
@@ -6,7 +6,7 @@
 1. 添加依赖
 
 ```
-$ yarn add js-utils-url
+$ yarn add @js-util-fn/url
 ```
 
 2. 应用
@@ -15,7 +15,7 @@ $ yarn add js-utils-url
 import { 
   parse, 
   setSearch
-} from 'js-utils-url';
+} from '@js-util-fn/url';
 
 const r = parse('/pages/foo/index?&a=1&b=2&c=3#hash');
 //return
