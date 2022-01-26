@@ -1,6 +1,6 @@
 {
   "name": "@js-util-fn/url",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "> 仅依赖JS Engine运行环境的URL 解析、修改/追回参数hash等方法集",
   "keywords": [
     "JS Engine",
