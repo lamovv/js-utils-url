@@ -1,31 +1,6 @@
 export const v = '__VERSION__';
 
 /**
- * @param {string} search
- * @returns {object}
- */
-export function search2JSON(search) {
-  const queryArr = search.replace(/^\?/, '').split(/&+/);
-  let params;
-
-  queryArr.forEach(item => {
-    //防止value里包含'='误伤
-    let index = item.indexOf('=');
-    let key = item.substr(0, index);
-    let value = item.substring(index + 1);
-
-    if (key) {
-      if (!params) {
-        params = {};
-      }
-      params[key] = decodeURIComponent(value);
-    }
-  });
-
-  return params;
-}
-
-/**
  * @typedef {object} Url
  * @property {string} href - 源url
  * @property {string} origin
@@ -65,6 +40,50 @@ export function parse(url = '') {
 }
 
 /**
+ * @param {string} search
+ * @returns {object}
+ */
+export function search2JSON(search) {
+  const queryArr = search.replace(/^\?/, '').split(/&+/);
+  let params = {};
+
+  queryArr.forEach(item => {
+    //防止value里包含'='误伤
+    let index = item.indexOf('=');
+    let key = item.substr(0, index);
+    let value = item.substring(index + 1);
+
+    if (key) {
+      params[key] = decodeURIComponent(value);
+    }
+  });
+
+  return params;
+}
+
+/**
+ * @param {object} json
+ * @returns {string}
+ */
+export function json2search(json) {
+  const str = [];
+
+  Object.keys(json).map(k => {
+    if (!Object.prototype.hasOwnProperty.call(json, k)) {
+      return;
+    }
+
+    const isNotEmpty = !~[undefined, null, ''].indexOf(json[k]);
+
+    if (isNotEmpty) {
+      str.push(`${k}=${encodeURIComponent(json[k])}`);
+    }
+  });
+
+  return str.join('&');
+}
+
+/**
  * @param {object} obj
  * @returns {string|boolean}
  */
@@ -76,16 +95,11 @@ export function object2search(obj) {
   keys.forEach(key => {
     //特殊处理参数
     if (key === 'params' && _obj.params) {
-      let parArr = [];
       const _params = Object.assign({}, _obj.params);
 
-      for (var k in _params) {
-        if (!Object.prototype.hasOwnProperty.call(_params, k)) {
-          continue;
-        }
-        parArr.push(k + '=' + encodeURIComponent(_params[k]));
-      }
-      result += '?' + parArr.join('&');
+      const search = json2search(_params);
+
+      result += '?' + search;
     } else {
       if (!obj.hostname && key === '//') {
         return false;

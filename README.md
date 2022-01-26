@@ -64,7 +64,9 @@ setSearch('https://m.foo.com/pages/foo/index?&a=1&b=2&c=3#hash', {a:7, e:9}, 'ne
 ```
 
 ## Dev
-- 启动开发环境：`npm run dev`
+- 初始化环境：`npm run init`
+- 启动开发：`npm run dev`
+  - 自动打开浏览器：`npm run dev:open`
 - 编译构建：`npm run build`
 - 发布：`npm run pub`
   - 发布beta包：`npm run beta`
