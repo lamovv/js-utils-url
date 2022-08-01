@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.7](https://github.com/lamovv/js-utils-url/compare/v1.0.5...v1.0.7) (2022-08-01)
+
+
+### Features
+
+* **fn:** json2search ([419ae92](https://github.com/lamovv/js-utils-url/commit/419ae926a1479a44959c94937f8cacf76522122e))
+
 ### [1.0.6](https://github.com/lamovv/js-utils-url/compare/v1.0.5...v1.0.6) (2022-01-26)
 
 
