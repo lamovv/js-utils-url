@@ -76,7 +76,7 @@ export function json2search(json) {
     const isNotEmpty = !~[undefined, null, ''].indexOf(json[k]);
 
     if (isNotEmpty) {
-      str.push(`${k}=${encodeURIComponent(json[k])}`);
+      str.push(`${k}=${encodeURIComponent(typeof json[k] === 'string' ? json[k] : JSON.stringify(json[k]))}`);
     }
   });
 
@@ -99,7 +99,7 @@ export function object2search(obj) {
 
       const search = json2search(_params);
 
-      result += '?' + search;
+      result += search ? '?' + search : '';
     } else {
       if (!obj.hostname && key === '//') {
         return false;
